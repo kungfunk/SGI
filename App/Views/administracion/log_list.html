@@ -1,0 +1,6 @@
+<h2>Listado de logs</h2>
+<ul class="log_list">
+    <?php foreach($list as $item): ?>
+    <li><a href="<?php echo DOC_URL ?>/administracion/logs/<?php echo $item ?>"><?php echo $item ?></a></li>
+    <?php endforeach; ?>
+</ul>

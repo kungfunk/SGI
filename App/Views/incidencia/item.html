@@ -1,0 +1,76 @@
+<script type="text/javascript">
+$(document).ready(function() { 
+    $('#status_id').change(function() {
+        if($('#status_id').val() == 4 && $('#respuesta').val() == undefined && $('#status_id').val() != <?php echo $status_id ?>) {
+            $('.status').after('<div id="respuesta-container"><label for="respuesta">Respuesta que recibirá el cliente:</label><textarea cols="10" rows="10" id="respuesta" name="respuesta"></textarea><span class="fecha"><label for="hora_id">Tiempo invertido en la incidencia: </label><?php echo $horas_select ?> horas <?php echo $minutos_select ?> minutos</span></div>');
+            $('#respuesta').hide().slideDown();
+        }
+        else {
+            if($('#respuesta').val() != undefined) {
+                $('#respuesta-container').slideUp().delay(1000).queue(function() { $(this).remove(); });
+            }
+        }
+        
+        if($('#status_id').val() != <?php echo $status_id ?>){ 
+            if($('#comentario').val() == undefined) {
+	            if($('#respuesta').val() == undefined) {
+	                $('.servicio').before('<div id="comentario-container"><label for="comentario">Comentario del cambio de estado:</label><textarea cols="10" rows="10" id="comentario" name="comentario"></textarea></div>');
+	            }else{
+	                $('.servicio').before('<div id="comentario-container"><label for="comentario">Comentario del cambio de estado:</label><textarea cols="10" rows="10" id="comentario" name="comentario"></textarea></div>');
+	            }
+            }
+	            $('#comentario').hide().slideDown();
+        }else{
+            if($('#comentario').val() != undefined) {
+                $('#comentario-container').slideUp().delay(1000).queue(function() { $(this).remove(); });
+            }
+        }
+    })
+});
+</script>
+<h1 class="small-title">Sistema de gestión de incidencias</h1>
+<h2>Incidencia ID<?php echo $id ?></h2>
+<form id="modificar" method="post" name="modificar" action="<?php echo SELF_URL ?>">
+<span class="status">Estado de la incidencia 
+<?php if(\Core\Libs\Auth::getAuth()->rol == 'Gestor'): ?>
+    <?php echo $status_select ?>
+<?php else: ?>
+    <span class="estatus" <?php echo $status ?>"><?php echo $status ?></span>
+<?php endif; ?>
+</span>
+<div class="servicio">Servicio con el que está relacionada 
+<?php if(\Core\Libs\Auth::getAuth()->rol == 'Gestor'): ?>
+    <?php echo $servicio_select ?> 
+<?php else: ?>
+    <span class="estatus" <?php echo $servicio ?>"><?php echo $servicio ?></span>
+<?php endif; ?>
+</div>
+<div class="descripcion"> 
+    <?php if($status == 'Finalizada' && $respuesta != null): ?>
+        <p class="respuesta"><?php echo nl2br($respuesta) ?></p>
+    <?php endif; ?>
+    <?php if($status == 'Pendiente'): ?>
+        <textarea cols="10" rows="10" id="descripcion" name="descripcion"><?php echo $descripcion ?></textarea>
+    <?php else: ?>
+        <p class="descripcion"><?php echo nl2br($descripcion) ?></p>
+    <?php endif; ?>
+</div>
+
+<?php if(\Core\Libs\Auth::getAuth()->rol == 'Gestor'): ?>
+	<div class="descripcion"> 
+	    <?php if(!empty($modificaciones)): ?>
+	        <?php foreach($modificaciones as $modificacion): ?>
+	        	<p class="titulocomentario"><?php echo $modificacion->status->name ?> - <span class="bold"><?php echo $modificacion->usuario->fullname ?></span><span class="fecha"><?php echo $modificacion->updated_at->format('d \d\e m \d\e\l Y \a \l\a\s H:i') ?></span></p>
+	        	<p class="comentario"><?php echo nl2br($modificacion->comentario) ?></p>
+	        <?php endforeach ?>
+	    <?php endif; ?>
+	</div>
+<?php endif; ?>
+
+<div class="buttons">
+    <a href="<?php echo DOC_URL ?>" title="Volver">Volver al indice</a>
+    <?php if($status == 'Pendiente' || \Core\Libs\Auth::getAuth()->rol == 'Gestor'): ?>
+    <span> o </span><input type="submit" value="Modificar incidencia" />
+    <?php endif; ?>
+</div>
+</form>

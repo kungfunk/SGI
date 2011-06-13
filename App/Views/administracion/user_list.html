@@ -1,0 +1,52 @@
+<h2>Editar Usuarios</h2>
+<div class="caja">
+    <?php if(count($users) < 1): ?>
+    <p>No se han encontrado resultados</p>
+    <?php else: ?>
+    <table class="horizontal-simple" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <td>Nombre</td>
+                <td>Empresa</td>
+                <td>Rol</td>
+                <td>Estatus</td>
+                <td>Email</td>
+                <td>Fecha de registro</td>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($users as $user): ?>
+            <tr class="">
+                <td class="celda-titulo">
+                    <a href="#<?php echo $user->username ?>"><?php echo $user->fullname ?></a>
+                    <div class="acciones-fila">
+                        <a href="<?php echo DOC_URL ?>/administracion/usuarios/edit/<?php echo $user->username ?>">Editar</a> |
+                        <a href="<?php echo DOC_URL ?>/administracion/usuarios/delete/<?php echo $user->username ?>">Borrar</a> |
+                        <a href="<?php echo DOC_URL ?>/usuarios/<?php echo $user->username ?>">Ver</a>
+                    </div>
+                </td>
+                <td><?php echo $user->empresa->name ?></td>
+                <td><?php echo $user->rol->name ?></td>
+                <?php $status = ($user->status == 1) ? 'Activo' : 'Inactivo'; ?>
+                <td class="<?php echo $status ?>"><?php echo $status ?></td>
+                <td><?php echo $user->email ?></td>
+                <td><?php echo $user->created_at ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php /* ?>
+    <div class="tablenav clearfix">
+            <div class="tablenav-pages">
+                    <span class="showing"><?php echo $showing ?></span>
+                    <?php if($prev_page): ?>
+                    <a class="numero-pag <?php echo $prev_page['class'] ?>" href="<?php echo DOC_URL ?>/administracion/usuarios/pagina/<?php echo $prev_page['value'] ?>"><?php echo $prev_page['text'] ?></a>
+                    <?php endif; ?>
+                    <?php if($next_page): ?>
+                    <a class="numero-pag <?php echo $next_page['class'] ?>" href="<?php echo DOC_URL ?>/administracion/usuarios/pagina/<?php echo $next_page['value'] ?>"><?php echo $next_page['text'] ?></a>
+                    <?php endif; ?>
+            </div>
+    </div>
+    <?php */ ?>
+    <?php endif; ?>
+</div>

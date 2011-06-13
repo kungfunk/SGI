@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="es" xml:lang="es">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title><?php echo $title ?></title>
+        <link href="<?php echo css('basic.css') ?>" rel="stylesheet" type="text/css" />
+        <?php if(isset($js)) echo $js ?>
+    </head>
+    <body>
+        <?php if(\Core\Libs\Auth::getAuth()->rol != 'Invitado'): ?>
+        <div id="top-menu">
+            <span>Hola <?php echo \Core\Libs\Auth::getAuth()->fullname ?>, tienes 
+                <a href="<?php echo DOC_URL ?>/incidencias/activas" title="Incidencias activas"><?php echo \App\Components\Topmenu::getIncidenciasAbiertas() ?></a>
+                incidencias activas. <a href="<?php echo DOC_URL ?>/logout/">Cerrar sesión</a>.</span>
+        </div>
+        <?php endif; ?>
+        <div id="content">

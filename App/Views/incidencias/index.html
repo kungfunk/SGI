@@ -1,0 +1,41 @@
+<h1 class="small-title">Sistema de gestion de incidencias</h1> 
+<?php if(count($incidencias) > 0): ?> 
+    <p class="tip">
+        <span class="bold">Leyenda:</span>
+        <span class="leyenda-bloque Invalida"></span>Inválida,
+        <span class="leyenda-bloque Pendiente"></span>Pendiente,
+        <span class="leyenda-bloque curso"></span>En curso, 
+        <span class="leyenda-bloque Finalizada"></span>Finalizada
+    </p>
+    <ol class="incidencias">
+        <?php foreach($incidencias as $incidencia): ?>
+        <li class="<?php echo $incidencia->status->name ?>"><a href="<?php echo DOC_URL ?>/incidencia/<?php echo $incidencia->id ?>" title="Ver incidencia"><span class="bold">ID<?php echo str_pad($incidencia->id, 2, "0", STR_PAD_LEFT) ?> - </span>
+                enviada por <span class="bold"><?php echo $incidencia->usuario->fullname ?></span><span class="fecha"><?php echo $incidencia->created_at->format('d \d\e m \d\e\l Y \a \l\a\s H:i:s'); ?></span></a>
+        </li>
+        <?php endforeach ?>
+    </ol>
+    <div class="pagination">
+        <?php echo $showing ?>
+		
+        <?php if(!empty($previous) || !empty($next)): ?>
+        	-
+	        <?php if(!empty($previous)): ?>
+	        	<a class="<?php echo $next['class'] ?>" href="<?php echo DOC_URL ?>/incidencias/<?php echo $accion ?>pagina/<?php echo $previous['value'] ?>" title="Pagina <?php echo $previous['text'] ?>">Pagina <?php echo $previous['text'] ?></a>
+	        <?php else: ?>
+	        	Pagina Anterior
+	        <?php endif; ?>
+	        -
+	        <?php if(!empty($next)): ?>
+	        	<a class="<?php echo $next['class'] ?>" href="<?php echo DOC_URL ?>/incidencias/<?php echo $accion ?>pagina/<?php echo $next['value'] ?>" title="Pagina <?php echo $next['text'] ?>">Pagina <?php echo $next['text'] ?></a>
+	        <?php else: ?>
+	        	Pagina Siguiente
+	        <?php endif; ?>
+	    <?php endif; ?>
+        
+    </div>
+<?php else: ?>
+    <span class="error">No se ha encontrado ninguna incidencia segun el criterio de busqueda</span>
+<?php endif; ?>
+<div class="buttons">
+    <a href="<?php echo DOC_URL ?>" title="Volver">Volver al indice</a>
+</div>

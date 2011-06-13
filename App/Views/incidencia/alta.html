@@ -1,0 +1,19 @@
+<h1 class="small-title">Sistema de gestion de incidencias</h1>  
+<form id="alta" method="post" name="alta" action="<?php echo SELF_URL ?>">
+    <span class="tip">Describa la incidencia aportando el mayor numero de detalles posible</span>
+    <div class="seleccionar_servicio">
+	    <label for="servicio_id">Seleccione el servicio con el que esta relacionada esta incidencia.</label>
+    	<?php echo $servicios ?>
+    </div>
+    <textarea cols="10" rows="10" name="descripcion"></textarea>
+    <?php if(\Core\Libs\Auth::getAuth()->rol == 'Gestor'): ?> 
+        <div class="suplantar_autor">
+        <label for="usuario_id">Selecciona el usuario al que quieras asociar esta inciencia.</label>
+        <?php echo $usuarios ?>
+        </div>
+    <?php endif; ?>
+    <div class="buttons">
+        <a href="<?php echo DOC_URL ?>" title="Volver">Volver al indice</a><span> o </span>
+        <input type="submit" value="Enviar incidencia" />
+    </div>
+</form> 

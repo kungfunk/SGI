@@ -1,0 +1,10 @@
+<form method="post" name="nuevo" action="<?php echo SELF_URL ?>">  
+<h2>Datos de registro de servicio</h2>
+<div class="caja">
+    <label for="username">Nombre</label>
+    <input type="text" name="name" value="<?php if($input != null) echo $input['name'] ?>" />
+    <span class="error"><?php if($errors != null && $errors->is_invalid('name')) echo $errors->on('name') ?></span>
+    <p class="info">Todos los datos deben estar correctamente cumplimentados</p>
+</div>
+<input type="submit" value="Crear servicio" />
+</form> 

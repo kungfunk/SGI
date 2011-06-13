@@ -1,0 +1,9 @@
+<h1 class="big-title">Sistema de gestion de incidencias</h1>
+<form id="login" method="post" name="login" action="<?php echo SELF_URL ?>">
+    <input type="text" name="name" value="<?php echo $name ?>" />
+    <input type="password" name="password" value="<?php echo $password ?>" />
+    <input type="submit" value="Entra!" />
+    <?php if(isset($error)): ?>
+        <span class="error"><?php echo $error ?></span>
+    <?php endif; ?>
+</form>

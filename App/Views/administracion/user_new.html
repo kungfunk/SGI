@@ -1,0 +1,25 @@
+<form method="post" name="nuevo" action="<?php echo SELF_URL ?>">
+<h2>Datos de registro</h2>
+<div class="caja">
+    <label for="username">Usuario</label>
+    <input type="text" name="username" value="<?php if($input != null) echo $input['username'] ?>" />
+    <span class="error"><?php if($errors != null && $errors->is_invalid('username')) echo $errors->on('username') ?></span><br />
+    <label for="name">Contraseña</label>
+    <input type="password" name="password" value="<?php if($input != null) echo $input['password'] ?>" />
+    <span class="error"><?php if($errors != null && $errors->is_invalid('password')) echo $errors->on('password') ?></span><br />
+    <label for="email">Email</label>
+    <input type="text" name="email" value="<?php if($input != null) echo $input['email'] ?>" />
+    <span class="error"><?php if($errors != null && $errors->is_invalid('email')) echo $errors->on('email') ?></span><br />
+    <label for="fullname">Nombre completo</label>
+    <input type="text" name="fullname" value="<?php if($input != null) echo $input['fullname'] ?>" />
+    <span class="error"><?php if($errors != null && $errors->is_invalid('fullname')) echo $errors->on('fullname') ?></span><br />
+    <label for="empresa">Empresa</label>
+    <?php echo $empresa_select ?><br />
+    <label for="role">Rol</label>
+    <?php echo $rol_select ?><br />
+    <label for="status">Estatus</label>
+    <?php echo $status_select ?>
+    <p class="info">Todos los datos deben estar correctamente cumplimentados</p>
+</div>
+<input type="submit" value="Crear usuario" />
+</form>
