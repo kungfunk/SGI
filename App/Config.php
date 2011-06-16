@@ -1,8 +1,8 @@
 <?php
 /**
- * Configuraciones generales y espec�ficas a cada categor�a de servidores
+ * Configuraciones generales y específicas a cada categoría de servidores
  *
- * Permite definir varias categor�as de sevidores, con m�ltiples url en cada categor�a
+ * Permite definir varias categorías de sevidores, con múltiples url en cada categoría
  *
  * @author Victor Calzón <victor@victorcalzon.com>
  * @package App
@@ -13,7 +13,7 @@ class Config
 {
     private static $me;
 
-    // Se definen las rutas que van a pertenecer a cada categor�a de servidor($_SERVER['HTTP_HOST'])
+    // Se definen las rutas que van a pertenecer a cada categoría de servidor($_SERVER['HTTP_HOST'])
     private $productionServers = array('sgi.dominio.com', 'dominio.com');
     private $localServers = array('localhost');
     private $testServers = array('');
@@ -59,7 +59,7 @@ class Config
         elseif('local' == $i_am_here)
             $this->local();
         else
-            die('<h1>¿Quien se ha llevado mi queso?</h1> <p>Incluye el http_host en el config melon!</p>
+            die('<h1>¿Quien se ha llevado mi queso?</h1> <p>¡Incluye el http_host en el config melón!</p>
                  <p><code>$_SERVER[\'HTTP_HOST\']</code> reported <code>' . $_SERVER['HTTP_HOST'] . '</code></p>');
 
         // ojito al .htaccess para entender esto
@@ -91,7 +91,7 @@ class Config
     }
 
     /**
-     * Configuraciones que se cargar�n en todos los servidores
+     * Configuraciones que se cargarán en todos los servidores
      */
     private function everywhere()
     {
@@ -103,7 +103,7 @@ class Config
 
         $this->authDomain = $_SERVER['HTTP_HOST'];
         $this->useHashedPasswords = true; //Indica si estamos utilizando claves encriptadas
-        $this->authSalt = 'wh4t3v3r'; // Este texto se a�ada despu�s de las claves antes de encriptarlas
+        $this->authSalt = 'wh4t3v3r'; // Este texto se añade después de las claves antes de encriptarlas
         $this->cookieName = 'sgi'; // Nombre del proyecto normalmente
         $this->sessionName = 'sgi';
 
@@ -111,12 +111,12 @@ class Config
     }
 
     /**
-     * Configuraciones que se cargar�n en todos los servidores de la categor�a "production"
+     * Configuraciones que se cargarán en todos los servidores de la categoría "production"
      */
     private function production()
     {
         ini_set('display_errors', '0');
-
+        // Establecer aqui la url canónica que vayamos a utilizar.
         define('DOC_URL', 'http://sgi.dominio.com');
 
         $this->dbDriver = 'mysql';
@@ -135,13 +135,13 @@ class Config
     }
 
     /**
-     * Configuraciones que se cargar�n en todos los servidores de la categor�a "local"
+     * Configuraciones que se cargarán en todos los servidores de la categoría "local"
      */
     private function local()
     {
         ini_set('display_errors', '1');
         ini_set('error_reporting', E_ALL | E_STRICT);
-
+        // Establecer aqui la url canónica que vayamos a utilizar.
         define('DOC_URL', 'http://localhost/sgi/public');
 
         $this->dbDriver = 'mysql';
@@ -160,13 +160,13 @@ class Config
     }
 
     /**
-     * Configuraciones que se cargar�n en todos los servidores de la categor�a "test"
+     * Configuraciones que se cargarán en todos los servidores de la categoría "test"
      */
     private function test()
     {
         ini_set('display_errors', '1');
         ini_set('error_reporting', E_ALL | E_STRICT);
-
+        // Establecer aqui la url canónica que vayamos a utilizar.
         define('DOC_URL', '');
 
         $this->dbDriver = '';
@@ -185,7 +185,7 @@ class Config
     }
 
     /**
-     * Configuraciones que se cargar�n en todos los servidores de la categor�a "production"
+     * Cargamos la configuración adecuada según donde estemos...
      */
     public function whereAmI()
     {
